@@ -26,7 +26,7 @@ function ProductsPage() {
   useEffect(() => {
     setSearchParams(query);
     let finalProducts = searchProducts(products, query.search);
-    filterProducts(filterProducts, query.category);
+    finalProducts = filterProducts(finalProducts, query.category);
     setDisplayed(finalProducts);
   }, [query]);
 
