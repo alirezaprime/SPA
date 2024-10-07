@@ -1,3 +1,5 @@
+import { useParams } from "react-router-dom";
+
 const shortenText = (text) => {
   return text.split(" ").slice(0, 3).join("");
 };
@@ -14,10 +16,46 @@ const filterProducts = (products, category) => {
   if (!category) return products;
   const filteredProducts = products.filter((p) => p.category === category);
   return filteredProducts;
-
-  // const filteredProducts = products.filter((p) =>
-  //   p.category.toLowerCase().include(category)
-  // );
+};
+//این فانکشن خیلی مهمه حتما تحلیل بکنی خودت هر سری
+const createQueryObject = (currentQuery, newQuery) => {
+  if (newQuery.category === "all") {
+    const { category, ...rest } = currentQuery;
+    return rest;
+  }
+  if (newQuery.search === "") {
+    const { search, ...rest } = currentQuery;
+    return rest;
+  }
+  return { ...currentQuery, ...newQuery };
 };
 
-export { shortenText, searchProducts, filterProducts };
+const getInitialQuery = (searchParams) => {
+  const query = {};
+  const category = searchParams.get("gategory");
+  const search = searchParams.get("search");
+  if (category) query.category = category;
+  if (search) query.search = search;
+  return query;
+};
+
+const sumProducts = (products) => {
+  const itemsCounter = products.reduce(
+    (counter, product) => counter + product.quantity,
+    0
+  );
+  const total = products
+    .reduce((total, product) => total + product.price * product.quantity, 0)
+    .toFixed(2);
+
+  return { itemsCounter: itemsCounter, total: total };
+};
+
+export {
+  shortenText,
+  searchProducts,
+  filterProducts,
+  createQueryObject,
+  getInitialQuery,
+  sumProducts,
+};
