@@ -17,6 +17,7 @@ const filterProducts = (products, category) => {
   const filteredProducts = products.filter((p) => p.category === category);
   return filteredProducts;
 };
+
 //این فانکشن خیلی مهمه حتما تحلیل بکنی خودت هر سری
 const createQueryObject = (currentQuery, newQuery) => {
   if (newQuery.category === "all") {
@@ -51,6 +52,15 @@ const sumProducts = (products) => {
   return { itemsCounter: itemsCounter, total: total };
 };
 
+const productQuantity = (state, id) => {
+  const index = state.selectedItems.findIndex((item) => item.id === id);
+  if (index === -1) {
+    return 0;
+  } else {
+    return state.selectedItems[index].quantity;
+  }
+};
+
 export {
   shortenText,
   searchProducts,
@@ -58,4 +68,5 @@ export {
   createQueryObject,
   getInitialQuery,
   sumProducts,
+  productQuantity,
 };
