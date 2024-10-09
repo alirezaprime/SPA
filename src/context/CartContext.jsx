@@ -51,7 +51,7 @@ const reducer = (state, action) => {
         ...sumProducts(state.selectedItems),
       };
     //////////////////////////////////////////////////////////////
-    case "CHECK":
+    case "CHECKOUT":
       return {
         selectedItems: [],
         itemsCounter: 0,
